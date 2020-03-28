@@ -1,16 +1,13 @@
-const http = require('http');
 var express = require('express');
 var cors = require('cors');
 var app = express();
 var covid = require('novelcovid');
+var path = require('path');
 app.use(cors());
+var port = process.env.PORT||3000;
 
-// app.get('/api/home',(req, res, next)=> {
-//     res.writeHead(200);
-//     let data = covid.getAll();
-//     console.log(data);
-//     res.end(JSON.stringify(data));
-// });
+app.use(express.static(path.resolve('../dist/yaBasic')))
+
 var errHandler = function(err) {
     console.log(err);
 }
@@ -20,6 +17,9 @@ app.get('/api/deathsAll',(req, res, next)=> {
                     res.send(result);
                 }, errHandler)
 });
+app.get('/',(req, res, next)=> {
+    res.sendFile(path.resolve('../dist/yaBasic/index.html'));
+});
 app.get('/api/deathsCountry',(req, res, next)=> {
     var dataPromise = covid.getCountry();
     dataPromise.then(function(result) {
@@ -27,4 +27,4 @@ app.get('/api/deathsCountry',(req, res, next)=> {
                 }, errHandler)
 });
 
-app.listen(3000);
+app.listen(port);
