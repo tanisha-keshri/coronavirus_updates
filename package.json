@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "prestart":"ng build",
+    "start": "cd backend && node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -53,5 +54,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "resolutions": {
+    "@babel/preset-env": "^7.8.7"
   }
 }
